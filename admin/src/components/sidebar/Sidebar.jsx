@@ -27,64 +27,66 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <p className="title">MAIN</p>
+          <p className="title">Trang chủ</p>
+          <Link to="/" style={{ textDecoration: "none" }}>
           <li>
             <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+            <span>Bảng chính</span>
           </li>
-          <p className="title">LISTS</p>
+          </Link>
+          <p className="title">Danh sách</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>Người dùng</span>
             </li>
           </Link>
           <Link to="/hotels" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Hotels</span>
+              <span>Khách sạn</span>
             </li>
           </Link>
           <Link to="/rooms" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
-              <span>Rooms</span>
+              <span>Phòng</span>
             </li>
           </Link>
           <li>
             <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
+            <span>Vận chuyển</span>
           </li>
-          <p className="title">USEFUL</p>
+          <p className="title">Thông số</p>
           <li>
             <InsertChartIcon className="icon" />
-            <span>Stats</span>
+            <span>Trạng thái</span>
           </li>
           <li>
             <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
+            <span>Thông báo</span>
           </li>
-          <p className="title">SERVICE</p>
+          <p className="title">Dịch vụ</p>
           <li>
             <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
+            <span>Hệ thống sức khỏe</span>
           </li>
           <li>
             <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
+            <span>Bản ghi</span>
           </li>
           <li>
             <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
+            <span>Cài đặt</span>
           </li>
-          <p className="title">USER</p>
+          <p className="title">Người dùng</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
+            <span>Hồ sơ</span>
           </li>
           <li>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span>Đăng xuất</span>
           </li>
         </ul>
       </div>

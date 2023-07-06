@@ -18,13 +18,13 @@ const NewHotel = () => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSelect = (e) => {
-    const value = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setRooms(value);
-  };
+  // const handleSelect = (e) => {
+  //   const value = Array.from(
+  //     e.target.selectedOptions,
+  //     (option) => option.value
+  //   );
+  //   setRooms(value);
+  // };
   
   console.log(files)
 
@@ -37,7 +37,7 @@ const NewHotel = () => {
           data.append("file", file);
           data.append("upload_preset", "upload");
           const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/lamadev/image/upload",
+            "https://api.cloudinary.com/v1_1/dr5a2uwpd/image/upload",
             data
           );
 
@@ -52,7 +52,10 @@ const NewHotel = () => {
         photos: list,
       };
 
-      await axios.post("/hotels", newhotel);
+      const res = await axios.post("/hotels", newhotel);
+      if(res.data._id){
+        alert("A new Hotel has been added") 
+      }
     } catch (err) {console.log(err)}
   };
   return (
@@ -61,7 +64,7 @@ const NewHotel = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Product</h1>
+          <h1>Thêm khách sạn mới</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -78,7 +81,7 @@ const NewHotel = () => {
             <form>
               <div className="formInput">
                 <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  Ảnh: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
                   type="file"
@@ -100,27 +103,14 @@ const NewHotel = () => {
                   />
                 </div>
               ))}
-              <div className="formInput">
-                <label>Featured</label>
+              {/* <div className="formInput">
+                <label>Đa dạng</label>
                 <select id="featured" onChange={handleChange}>
-                  <option value={false}>No</option>
-                  <option value={true}>Yes</option>
+                  <option value={false}>Không</option>
+                  <option value={true}>Có</option>
                 </select>
-              </div>
-              <div className="selectRooms">
-                <label>Rooms</label>
-                <select id="rooms" multiple onChange={handleSelect}>
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map((room) => (
-                        <option key={room._id} value={room._id}>
-                          {room.title}
-                        </option>
-                      ))}
-                </select>
-              </div>
-              <button onClick={handleClick}>Send</button>
+              </div> */}
+              <button onClick={handleClick}>Gửi</button>
             </form>
           </div>
         </div>

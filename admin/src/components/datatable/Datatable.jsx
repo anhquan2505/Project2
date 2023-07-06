@@ -9,50 +9,63 @@ import axios from "axios";
 const Datatable = ({columns}) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
   const { data, loading, error } = useFetch(`/${path}`);
 
   useEffect(() => {
+    // console.log(path)
     setList(data);
   }, [data]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, hotelId) => {
     try {
-      await axios.delete(`/${path}/${id}`);
-      setList(list.filter((item) => item._id !== id));
+      if(path == 'rooms'){
+        await axios.delete(`/${path}/${id}/${hotelId}`);
+        setList(list.filter((item) => item._id !== id));
+      }
+      else{
+        await axios.delete(`/${path}/${id}`);
+        setList(list.filter((item) => item._id !== id));
+      }
     } catch (err) {}
   };
+
+  const handleUpdateInUsed = (roomId) =>{
+
+  }
 
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Các hoạt động",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+            <Link to={`/${path}/${params.row._id}`} style={{ textDecoration: "none" }}>
+              <div className="viewButton">Xem</div>
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.row._id, params.row.hotelId)}
             >
-              Delete
+              Xóa
             </div>
           </div>
         );
       },
     },
+
   ];
   return (
     <div className="datatable">
       <div className="datatableTitle">
         {path}
         <Link to={`/${path}/new`} className="link">
-          Add New
+          Thêm mới
         </Link>
       </div>
+
       <DataGrid
         className="datagrid"
         rows={list}

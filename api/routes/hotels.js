@@ -22,12 +22,12 @@ router.put("/:id", verifyAdmin, updateHotel);
 router.delete("/:id", verifyAdmin, deleteHotel);
 //GET
 
-router.get("/find/:id", getHotel);
+router.get("/:id", getHotel);
 //GET ALL
 
 router.get("/", getHotels);
-router.get("/countByCity", countByCity);
-router.get("/countByType", countByType);
+router.get("/getCount/countByCity", countByCity);
+router.get("/getCount/countByType", countByType);
 router.get("/room/:id", getHotelRooms);
 
 export default router;

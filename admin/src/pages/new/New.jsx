@@ -20,10 +20,9 @@ const New = ({ inputs, title }) => {
     data.append("upload_preset", "upload");
     try {
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/lamadev/image/upload",
+        "https://api.cloudinary.com/v1_1/dr5a2uwpd/image/upload",
         data
       );
-
       const { url } = uploadRes.data;
 
       const newUser = {
@@ -31,7 +30,10 @@ const New = ({ inputs, title }) => {
         img: url,
       };
 
-      await axios.post("/auth/register", newUser);
+      const res = await axios.post("/auth/register", newUser);
+      if(res.data == "User has been created."){
+        alert("A new user has been added")
+      }
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +63,7 @@ const New = ({ inputs, title }) => {
             <form>
               <div className="formInput">
                 <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  Ảnh: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
                   type="file"
@@ -82,7 +84,7 @@ const New = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>Gửi</button>
             </form>
           </div>
         </div>
