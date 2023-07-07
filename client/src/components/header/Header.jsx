@@ -128,7 +128,7 @@ const Header = ({ type }) => {
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                >{`${options.adult} adult · ${options.children} children `}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
@@ -173,7 +173,7 @@ const Header = ({ type }) => {
                         </button>
                       </div>
                     </div>
-                    <div className="optionItem">
+                    {/* <div className="optionItem">
                       <span className="optionText">Room</span>
                       <div className="optionCounter">
                         <button
@@ -193,7 +193,7 @@ const Header = ({ type }) => {
                           +
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </div>

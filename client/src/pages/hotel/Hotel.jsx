@@ -11,6 +11,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
+import moment from "moment";
 import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
@@ -36,7 +37,7 @@ const Hotel = () => {
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
   }
-
+ 
   const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
   const handleOpen = (i) => {
@@ -130,6 +131,8 @@ const Hotel = () => {
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Perfect for a {days}-night stay!</h1>
+                {/* <span>{dates[0].startDate}</span> */}
+                {/* <span>From {moment(new Date(dates[0].startDate), 'YYYY-MM-DD')}</span> */}
                 <span>
                   Located in the real heart of Krakow, this property has an
                   excellent location score of 9.8!

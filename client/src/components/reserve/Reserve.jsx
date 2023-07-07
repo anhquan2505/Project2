@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
+import moment from "moment"
 import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
@@ -12,7 +12,9 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
+  // console.log(data);
   const getDatesInRange = (startDate, endDate) => {
+
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -31,18 +33,22 @@ const Reserve = ({ setOpen, hotelId }) => {
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
 
   const isAvailable = (roomNumber) => {
-    let isFound = false;
-    roomNumber.unavailableDates.every((room) => {
-      isFound = room.date.some((dateInfo) =>
-        alldates.includes(new Date(dateInfo).getTime())
-      );
-      if (isFound) {
-        return !isFound;
+    let startMoment = moment(new Date(alldates[0]), 'YYYY-MM-DD');
+    let endMoment = moment(new Date(alldates[alldates.length - 1]), 'YYYY-MM-DD');
+    console.log(startMoment);
+    let isAvailable = true;
+    roomNumber.unavailableDates.forEach((order) => {
+      let firstDate = moment(new Date(order.date[0]), 'YYYY-MM-DD');
+      let lastDate = moment(new Date(order.date[order.date.length - 1]), 'YYYY-MM-DD');
+      if (firstDate.isBetween(startMoment, endMoment, null, '[]')
+        || lastDate.isBetween(startMoment, endMoment, null, '[]')
+      ) {
+        isAvailable = false;
       }
     })
+    console.log(roomNumber + isAvailable)
 
-
-    return !isFound;
+    return isAvailable;
   };
 
   const handleSelect = (e) => {
@@ -78,8 +84,8 @@ const Reserve = ({ setOpen, hotelId }) => {
   }
 
   return (
-    <div className="reserve">
-      <div className="rContainer">
+    <div className="reserve" >
+      <div className="rContainer" style={{maxWidth: "80vw"}}>
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="rClose"

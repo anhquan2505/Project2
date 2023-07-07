@@ -2,7 +2,34 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import { faker } from '@faker-js/faker';
 
+
+export const createFakeModel =  async (req, res, next) => {
+  try {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync("1", salt);
+    let arrayUser = [];
+    let arrayCity = ['Hà Nội',"Đà Nẵng", "TP HCM"];
+    let amount = 100
+    for (let index = 0; index < amount; index++) {
+      let user = {
+        username: faker.internet.userName(),
+        email: faker.internet.email(),
+        country: "Việt Nam",
+        city: arrayCity[index%(arrayCity.length)],
+        phone: faker.phone.number('0#########'),
+        isAdmin: false,
+        password: hash,
+      }
+      arrayUser.push(user)
+    }
+    const insertMany = await User.insertMany(arrayUser) 
+    res.status(200).json(insertMany);
+  } catch (err) {
+    next(err);
+  }
+};
 export const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);

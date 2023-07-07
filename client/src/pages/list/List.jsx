@@ -2,12 +2,12 @@ import "./list.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
-
+import { SearchContext } from "../../context/SearchContext";
 const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
@@ -16,14 +16,16 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
-
+  const { dispatch } = useContext(SearchContext);
+  console.log(dates);
 
   const { data, loading, error, reFetch } = useFetch(
-    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 10000000}`
+    `/hotels/search/search?city=${destination}&min=${min || 0 }&max=${max || 10000000}&endDate=${dates[0].endDate}&startDate=${dates[0].startDate}&options=${JSON.stringify(options)}`
   );
 
   const handleClick = () => {
     reFetch();
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
   };
 
   return (
@@ -82,6 +84,7 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
+                    onChange={(e) => setOptions({...options, adult: e.target.value })}
                     placeholder={options.adult}
                   />
                 </div>
@@ -91,10 +94,11 @@ const List = () => {
                     type="number"
                     min={0}
                     className="lsOptionInput"
+                    onChange={(e) => setOptions({...options, children: e.target.value })}
                     placeholder={options.children}
                   />
                 </div>
-                <div className="lsOptionItem">
+                {/* <div className="lsOptionItem">
                   <span className="lsOptionText">Room</span>
                   <input
                     type="number"
@@ -102,7 +106,7 @@ const List = () => {
                     className="lsOptionInput"
                     placeholder={options.room}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             <button onClick={handleClick}>Search</button>
