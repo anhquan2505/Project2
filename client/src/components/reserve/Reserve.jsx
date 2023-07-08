@@ -85,7 +85,7 @@ const Reserve = ({ setOpen, hotelId }) => {
 
   return (
     <div className="reserve" >
-      <div className="rContainer" style={{maxWidth: "80vw"}}>
+      <div className="rContainer" style={{maxWidth: "80vw", maxHeight: "80vh", overflow: "scroll"}}>
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="rClose"
