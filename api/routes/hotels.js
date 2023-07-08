@@ -9,8 +9,9 @@ import {
   getHotels,
   searchHotels,
   updateHotel,
+  createFakeModel
 } from "../controllers/hotel.js";
-import Hotel from "../models/Hotel.js";
+
 import {verifyAdmin} from "../utils/verifyToken.js"
 const router = express.Router();
 
@@ -31,5 +32,7 @@ router.get("/search/search", searchHotels)
 router.get("/getCount/countByCity", countByCity);
 router.get("/getCount/countByType", countByType);
 router.get("/room/:id", getHotelRooms);
+
+router.get('/fake/create-fake-model', createFakeModel)
 
 export default router;

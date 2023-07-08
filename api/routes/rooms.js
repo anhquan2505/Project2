@@ -8,7 +8,9 @@ import {
   updateRoom,
   updateRoomAvailability,
   updateRoomCheckIn,
-  updateRoomCheckOut
+  updateRoomCheckOut,
+  createFakeModel,
+  modifyAttachRoomtoHotel
 } from "../controllers/room.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
@@ -33,5 +35,6 @@ router.get("/:id", getRoom);
 router.get("/", getRooms);
 
 router.get('/users/:id', getRoomsByUserId)
-
+router.get('/fake/create-fake-model', createFakeModel)
+router.get("/fake/attachRoomToHotel", modifyAttachRoomtoHotel)
 export default router;
